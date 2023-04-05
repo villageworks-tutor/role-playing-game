@@ -16,6 +16,7 @@ public class Game {
 		
 		// オブジェクトの生成（名前：勇者、生命力：50、攻撃力：10）と情報の表示
 		Actor brave = new Hero(50, 10);
+		//Actor brave = new Hero(10, 5);
 		System.out.println(brave.toString());
 		
 		partition();
@@ -26,27 +27,40 @@ public class Game {
 		
 		partition();
 		
-		// 勇者から敵への攻撃
-		brave.attack(zombie);
-		// 敵の情報を表示
-		System.out.println("\t" + zombie);
+		while (true) {
+			// 勇者から敵への攻撃
+			brave.attack(zombie);
+			// 敵の情報を表示
+			System.out.println("\t" + zombie);
+			
+			partition();
+			
+			if (zombie.getHp() == 0) {
+				System.out.println(zombie.getName() + "を倒した！");
+				partition();
+				partition();
+				System.out.println("★★★ ゲーム終了 ★★★");
+				break;
+			}
+	
+			// 敵から勇者への攻撃
+			zombie.attack(brave);
+			// 勇者の情報を表示
+			System.out.println("\t" + brave);
+			
+			partition();
+			
+			if (brave.getHp() == 0) {
+				System.out.println(brave.getName() + "はやられてしまった...");
+				partition();
+				partition();
+				System.out.println("★★★ ゲームオーバー ★★★");
+				break;
+			}
+			
+		}
 		
-		partition();
-
-		// 敵から勇者への攻撃
-		zombie.attack(brave);
-		// 勇者の情報を表示
-		System.out.println("\t" + brave);
-		
-		partition();
-		
-		// 勇者から敵への攻撃
-		brave.attack(zombie);
-		// 敵の情報を表示
-		System.out.println("\t" + zombie);
-		
-		partition();
-		System.out.println("★★★ ゲーム終了 ★★★");
+//		System.out.println("★★★ ゲーム終了 ★★★");
 		
 	}
 
