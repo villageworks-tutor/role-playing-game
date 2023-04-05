@@ -22,7 +22,6 @@ public class Game {
 		
 		partition();
 		
-		// 3体の敵キャラクタと戦う
 		for (int count = 0; count < 3; count++) {
 			
 			// 敵キャラクタの生成
@@ -33,31 +32,14 @@ public class Game {
 			while (true) {
 				
 				// 勇者から敵への攻撃
-				brave.attack(enemy);
-				// 敵の情報を表示
-				System.out.println("\t" + enemy);
+				fight(brave, enemy);
 				partition();
-				// 敵の生命力を評価
-				if (enemy.getHp() == 0) {
-					System.out.println(enemy.getName() + "を倒した！");
-					partition();
-					partition();
-					break; // 次の敵キャラクタを生成
-				}
+				if (isDefeated(enemy)) break; // 次の敵キャラクタを生成
 				
 				// 敵から勇者への攻撃
-				enemy.attack(brave);
-				// 勇者の情報を表示
-				System.out.println("\t" + brave);
+				fight(enemy, brave);
 				partition();
-				// 勇者の生命力を評価
-				if (brave.getHp() == 0) {
-					System.out.println(brave.getName() + "はやられてしまった...");
-					partition();
-					partition();
-					System.out.println("★★★ ゲームオーバー ★★★");
-					return; // 強制的に終了
-				}
+				if (isDefeated(brave)) return; // 強制的に終了
 			}
 		}
 		
@@ -67,7 +49,39 @@ public class Game {
 		
 	}
 
-	
+	/**
+	 * 指定されたキャラクタの生命力を判定する
+	 * @param target 指定されたキャラクタ
+	 * @return キャラクタの生命力が0の場合はtrue、それ以外はfalse
+	 */
+	private static boolean isDefeated(Actor target) {
+		// ターゲットの生命力が0でない場合
+		if (target.getHp() > 0) return false;
+		if (target instanceof Hero) {
+			System.out.println(target.getName() + "はやられてしまった...");
+			partition();
+			partition();
+			System.out.println("★★★ ゲームオーバー ★★★");
+		} else {
+			System.out.println(target.getName() + "を倒した！");
+			partition();
+			partition();
+		}
+		return true;
+	}
+
+	/**
+	 * キャラクタを戦わせる
+	 * @param attacker 攻撃するキャラクタ
+	 * @param reciever 攻撃されるキャラクタ
+	 */
+	private static void fight(Actor attacker, Actor reciever) {
+		// 勇者から敵への攻撃
+		attacker.attack(reciever);
+		// 敵の情報を表示
+		System.out.println("\t" + reciever);
+	}
+
 	/**
 	 * 処理の仕切りを表示する
 	 */
