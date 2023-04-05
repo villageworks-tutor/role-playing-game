@@ -1,5 +1,9 @@
 package rpg.character;
 
+/**
+ * ゾンビクラス：ゲームキャラクタクラスの継承クラス
+ * @author villa
+ */
 public class Zombie extends Actor {
 
 	/**
