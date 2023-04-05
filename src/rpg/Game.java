@@ -34,10 +34,11 @@ public class Game {
 			partition();
 			
 			while (true) {
-				
 				System.out.println("どうしますか？");
-				System.out.print("\t[1]攻撃　[2]回復：");
+				System.out.print("\t[1]攻撃　[2]回復　[3]逃げる：");
 				int behavior = scanner.nextInt();
+				
+				partition();
 				
 				if (behavior == 1) {
 					// 勇者から敵への攻撃
@@ -49,10 +50,17 @@ public class Game {
 					fight(enemy, brave);
 					partition();
 					if (isDefeated(brave)) return; // 強制的に終了
-				} else {
+				} else if (behavior == 2) {
 					brave.heal();
 					System.out.println("\t" + brave);
+					partition();
+				} else {
+					System.out.println(brave.getName() + "は逃げ出した！");
+					partition();
+					count--;
+					break;
 				}
+				
 			}
 		}
 		
