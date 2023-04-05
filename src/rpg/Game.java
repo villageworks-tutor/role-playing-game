@@ -1,5 +1,7 @@
 package rpg;
 
+import java.util.Scanner;
+
 import rpg.character.Actor;
 import rpg.character.Hero;
 
@@ -9,6 +11,8 @@ import rpg.character.Hero;
  */
 public class Game {
 
+	static Scanner scanner = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		
 		int hp = Integer.parseInt(args[0]);
@@ -31,15 +35,24 @@ public class Game {
 			
 			while (true) {
 				
-				// 勇者から敵への攻撃
-				fight(brave, enemy);
-				partition();
-				if (isDefeated(enemy)) break; // 次の敵キャラクタを生成
+				System.out.println("どうしますか？");
+				System.out.print("\t[1]攻撃　[2]回復：");
+				int behavior = scanner.nextInt();
 				
-				// 敵から勇者への攻撃
-				fight(enemy, brave);
-				partition();
-				if (isDefeated(brave)) return; // 強制的に終了
+				if (behavior == 1) {
+					// 勇者から敵への攻撃
+					fight(brave, enemy);
+					partition();
+					if (isDefeated(enemy)) break; // 次の敵キャラクタを生成
+					
+					// 敵から勇者への攻撃
+					fight(enemy, brave);
+					partition();
+					if (isDefeated(brave)) return; // 強制的に終了
+				} else {
+					brave.heal();
+					System.out.println("\t" + brave);
+				}
 			}
 		}
 		

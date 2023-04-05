@@ -14,17 +14,19 @@ public class Actor {
 	private String name; // キャラクター名
 	private int hp;      // 生命力
 	private int attack;  // 攻撃力
+	private int maxHp;   // 最大生命力
 	
 	/**
 	 * コンストラクタ
 	 * @param name   キャラクター名
-	 * @param hp     生命力
+	 * @param hp     生命力（最大生命力も兼ねる）
 	 * @param attack 攻撃力
 	 */
 	public Actor(String name, int hp, int attack) {
 		this.name = name;
 		this.hp = hp;
 		this.attack = attack;
+		this.maxHp = hp;
 	}
 
 	/**
@@ -53,7 +55,7 @@ public class Actor {
 
 	@Override
 	public String toString() {
-		return this.name + "（HP：" + this.hp + "）";
+		return this.name + "（HP：" + this.hp + "/" + this.maxHp + "）";
 	}
 	
 	/**
@@ -106,6 +108,18 @@ public class Actor {
 		}
 		// 生成した敵キャラクタを返却
 		return enemy;
+	}
+	
+	/**
+	 * 生命力を回復する
+	 */
+	public void heal() {
+		if (((double) this.hp) / this.maxHp < 1.0) {
+			this.hp += this.maxHp;
+		} else {
+			this.hp = this.maxHp;
+		}
+		System.out.println(this.name + "は回復した！");
 	}
 	
 }
