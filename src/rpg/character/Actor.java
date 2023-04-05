@@ -115,7 +115,7 @@ public class Actor {
 	 */
 	public void heal() {
 		if (((double) this.hp) / this.maxHp < 1.0) {
-			this.hp += this.maxHp;
+			this.hp += this.maxHp / 2;
 		} else {
 			this.hp = this.maxHp;
 		}
