@@ -64,7 +64,6 @@ public class Actor {
 		} else {
 			target.hp = 0;
 		}
-		System.out.println(this.name + "の攻撃");
 		System.out.println("\t" + target.name + "に" + this.attack + "のダメージを与えた！");
 	}
 	
